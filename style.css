@@ -1,0 +1,151 @@
+/* 声明自定义字体 */
+@font-face {
+    font-family: 'Futura-Light'; /* 这是你在 CSS 里调用它的名字 */
+    src: 
+         url('fonts/Futura-Light.ttf') format('truetype'); /* 备用加载 ttf */
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap; /* 性能优化：字体加载前先显示系统字体，加载完立即替换 */
+}
+
+/* =========================================
+   1. 基础设置 (Global Styles)
+   控制整个网页的底色和内容居中方式
+   ========================================= */
+body, html {
+    margin: 0;           /* 去除浏览器默认的外边距 */
+    padding: 0;          /* 去除浏览器默认的内边距 */
+    height: 100%;        /* 强制高度撑满整个屏幕 */
+    display: flex;       /* 使用弹性盒子布局 */
+    /* justify-content: center;  让内部的 hero 区域在水平方向居中 */
+    /* align-items: center;      让内部的 hero 区域在垂直方向居中 */
+    background-color: #fff;  /* 设置纯白背景 */
+}
+
+/* =========================================
+   2. 页面布局容器 (Layout Containers)
+   ========================================= */
+.hero {
+    position: relative;  /* 作为“父级参照物”，让内部绝对定位的文字能以此为基准 */
+    width: 100vw;         /* 宽度占满全屏，确保文字能定位到屏幕最左侧 */
+    height: 100vh;       /* 高度占满视口 */
+    display: flex;
+    justify-content: center; /* 保持图片在页面中心 */
+    align-items: center;
+}
+
+.hero-wrapper {
+    position: relative;  /* 让内部的图片(slides)可以重叠定位在这个框里 */
+    width: 400px;        /* 固定宽度，需与图片展示宽度一致 */
+    height: 300px;       /* 固定高度，确保图片切换时不抖动 */
+    display: inline-block;  /* 保持为行内块元素，避免换行 */
+}
+
+/* =========================================
+   3. 图片与轮播效果 (Image & Slideshow)
+   ========================================= */
+.main-image {
+    display: block;      /* 消除图片底部的间隙 */
+    max-width: 100%;     /* 限制最大宽度，防止溢出 */
+    height: auto;        /* 高度自适应 */
+}
+
+.slides {
+    position: absolute;  /* 绝对定位：让所有图片叠在同一个位置（像叠纸牌） */
+    top: 0;
+    left: 0;
+    opacity: 0;          /* 初始状态：完全透明（不可见） */
+    transition: opacity 1s ease-in-out; /* 过渡效果：透明度变化耗时1秒，且平滑进入/退出 */
+    z-index: 1;          /* 基础层级，数值较小 */
+}
+
+.slides.active {
+    opacity: 1;          /* 当图片拥有 .active 类时，变为完全不透明（可见） */
+    z-index: 2;          /* 提升层级，确保当前显示的图片在最上方 */
+}
+
+/* =========================================
+   4. 文字样式与定位 (Typography & Positioning)
+   ========================================= */
+.brand-name {
+    position: absolute;  /* 绝对定位：脱离文档流，自由浮动在指定位置 */
+    top: 50%;            /* 距离父级(hero)顶部 50% 的位置 */
+    transform: translateY(-50%); /* 向上位移自身高度的一半，实现真正的垂直居中 */
+    
+    left: 24px;          /* 关键修改：距离整个页面左侧边缘缩进 24px */
+    text-align: left;    /* 文字内容向左对齐 */
+    
+    /* 字体设置：优先查找 Futura-Light，没有则使用普通 Futura，再没有则用系统无衬线字体 */
+    font-family: "Futura-Light", "Futura", sans-serif; 
+    
+    color: #ff3b30;      /* 使用特定的鲜艳红色 */
+    font-size: 2rem;   /* 字体大小，2倍基础字号 */
+    white-space: nowrap; /* 强制文字不换行，保持在一行显示 */
+    margin: 0;           /* 清除标题默认的上下间距 */
+    z-index: 10;         /* 确保文字层级最高，永远压在图片上方 */
+}
+
+/* 修改菜单字体 */
+.side-menu a {
+    font-family: 'Futura-Light', sans-serif;
+    /* 其他样式保持不变... */
+}
+
+/* =========================================
+   5. 交互元素 (Interactive Elements)
+   ========================================= */
+.menu-toggle {
+    position: fixed;     /* 固定定位：无论页面如何滚动，它都固定在屏幕那个位置 */
+    bottom: 40px;        /* 距离屏幕底部 40px */
+    right: 40px;         /* 距离屏幕右侧 40px */
+    background: none;    /* 去掉按钮默认背景色 */
+    border: none;        /* 去掉按钮默认边框 */
+    font-size: 3rem;     /* 放大“+”号大小 */
+    font-weight: 100;    /* 使用极细的字体粗细 */
+    cursor: pointer;     /* 鼠标悬停时显示小手图标，提示可点击 */
+}
+
+/* =========================================
+   6. 右侧弹出菜单 (Side Menu)
+   ========================================= */
+.side-menu {
+    position: fixed;
+    right: 24px;          /* 右侧缩进 24px，与左侧文字对应 */
+    bottom: 110px;        /* 位于 + 号按钮上方 */
+    text-align: right;    /* 文字向右对齐 */
+    background: transparent; /* 透明背景 */
+    z-index: 100;
+    
+    /* 初始状态：隐藏 */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease; /* 平滑淡入淡出 */
+}
+
+/* 当菜单被激活时（通过 JS 添加 active 类） */
+.side-menu.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.side-menu ul {
+    list-style: none;     /* 去掉列表圆点 */
+    padding: 0;
+    margin: 0;
+}
+
+.side-menu li {
+    margin-bottom: 12px;  /* 选项之间的间距 */
+}
+
+.side-menu a {
+    text-decoration: none;
+    color: #303030;       /* 颜色：#303030 */
+    font-family: "Futura-Light", "Futura", sans-serif;
+    font-size: 20px;      /* 字体大小：20px */
+    transition: opacity 0.2s;
+}
+
+.side-menu a:hover {
+    opacity: 0.5;         /* 鼠标悬停时变淡 */
+}

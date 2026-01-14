@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Follow The White Rabbit</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="hero">
+        <div class="hero-wrapper">
+           <img src="IMG_0817.JPG" class="main-image slides active" alt="Slide 1">
+           <img src="IMG_0758.PNG" class="main-image slides" alt="Slide 2">
+           <img src="IMG_0843.PNG" class="main-image slides" alt="Slide 3">
+           
+        </div>
+
+        <h1 class="brand-name">MEILIN QU</h1>
+        
+    </header>
+
+    <nav class="side-menu" id="sideMenu">
+        <ul>
+         <li><a href="#">Homepage</a></li>
+         <li><a href="#">Info</a></li>
+         <li><a href="#">Works</a></li>
+         <li><a href="https://www.instagram.com/qumei0/" target="_blank">Ig</a></li>
+        </ul>
+    </nav>
+
+    <button class="menu-toggle" id="menuBtn">+</button>
+
+
+    <script> 
+        window.addEventListener('DOMContentLoaded', () => {
+         // --- 1. 图片轮播逻辑 ---
+            let currentSlide = 0;
+         const slides = document.querySelectorAll('.slides');
+        
+         if (slides.length > 0) {
+            function showNextSlide() {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }
+            setInterval(showNextSlide, 3000);
+        }
+
+        // --- 2. 菜单点击逻辑 (确保放在监听器内部) ---
+        const menuBtn = document.getElementById('menuBtn');
+        const sideMenu = document.getElementById('sideMenu');
+
+        if (menuBtn && sideMenu) {
+            menuBtn.addEventListener('click', () => {
+                /* 切换菜单的 active 类 */
+                sideMenu.classList.toggle('active');
+
+                /* 切换按钮符号 */
+                if (sideMenu.classList.contains('active')) {
+                    menuBtn.textContent = '×';
+                } else {
+                    menuBtn.textContent = '+';
+                }
+            });
+        }
+     });
+
+        document.addEventListener('click', (e) => {
+            if (!sideMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+             sideMenu.classList.remove('active');
+             menuBtn.textContent = '+';
+        }
+    });
+
+    </script>
+    
+
+</body>
+</html>
