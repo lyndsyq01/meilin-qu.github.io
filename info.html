@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Info - Meilin Qu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <main class="info-container">
+     <section class="info-row">
+         <div class="col-1-2">
+              <p>Meilin Qu is an image maker, narrator and artist.</p>
+              <br>
+                <p>
+                 Her research-based art practices focus on the social and instrumentalized role of epistemological tools, sound and latent digitality. Her practice experiments with forms of media presentation, imagery, spatial narratives, while critically examining data and the use of artificial intelligence.
+                </p>
+                <br>
+            <p>
+             Her critical questioning of image-making and technique mechanism forms to be the core of Qu’s curatorial artistic approach. In theory and practice, Qu’s oeuvre explores how hidden systems operate beyond the norms among technology, infrastructure and daily artifacts. She traces the mutation of camera images from the manifold analog image to the fragmented, fluid, and generated digital image, and the resulting implications for the representation of wars, surveillance, and capital flows.
+            </p>
+             <br>
+             <p>
+              She has a B.A. in Visual Communication, Design Curating and Spatial Narratives, from Central Academy of Fine Arts (China). She is now having her Masters of Fine Art in Design | Media Art from University of California, Los Angeles.
+             </p>
+         </div>
+     </section>
+
+        <section class="info-row">
+         <div class="col-1"><h3>CONTACT</h3></div> <div class="col-2">
+             <p><a href="mailto:forqumei0@gmail.com">forqumei0@gmail.com</a></p> </div>
+         <div class="col-4">
+             <p><a href="https://instagram.com/qumei0/" target="_blank">Instagram</a></p> </div>
+     </section>
+
+        <section class="info-row">
+         <div class="col-1"><h3>SELECTED PRESS</h3></div> <div class="col-3">
+                <p>Download Press PDF</p> </div>
+     </section>
+    </main>
+
+    <nav class="side-menu" id="sideMenu">
+        <ul>
+            <li><a href="index.html">Homepage</a></li>
+            <li><a href="info.html">Info</a></li>
+            <li><a href="#">Works</a></li>
+            <li><a href="https://www.instagram.com/qumei0/" target="_blank">Ig</a></li>
+        </ul>
+    </nav>
+
+    <button class="menu-toggle" id="menuBtn">+</button>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const menuBtn = document.getElementById('menuBtn');
+            const sideMenu = document.getElementById('sideMenu');
+
+            if (menuBtn && sideMenu) {
+                // 1. 点击按钮切换菜单
+                menuBtn.addEventListener('click', (e) => {
+                    e.stopPropagation(); // 阻止事件冒泡，防止触发下面的 document 点击关闭逻辑
+                    sideMenu.classList.toggle('active');
+                    menuBtn.textContent = sideMenu.classList.contains('active') ? '×' : '+';
+                });
+
+                // 2. 点击菜单内部时阻止关闭
+                sideMenu.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                });
+
+                // 3. 点击页面其他地方关闭菜单
+                document.addEventListener('click', () => {
+                    sideMenu.classList.remove('active');
+                    menuBtn.textContent = '+';
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>

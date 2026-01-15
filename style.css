@@ -149,3 +149,68 @@ body, html {
 .side-menu a:hover {
     opacity: 0.5;         /* 鼠标悬停时变淡 */
 }
+
+
+/* =========================================
+   7. Info 页面多栏排版 (Grid Layout)
+   ========================================= */
+
+/* 整体容器：控制上下留白和最大宽度 */
+.info-container {
+    max-width: 1200px;    /* 限制内容最大宽度，防止在大屏幕上太散 */
+    margin: 0 auto;       /* 水平居中 */
+    padding: 120px 24px;  /* 顶部留出 120px，左右缩进 24px */
+    font-family: "Futura-Light", sans-serif;
+}
+
+/* 每一行的基础设置 */
+.info-row {
+    display: grid;
+    /* 划分为 4 个等宽列 (1fr 代表 1份比例) */
+    grid-template-columns: repeat(4, 1fr); 
+    column-gap: 20px;     /* 列之间的间距 */
+    margin-bottom: 60px;  /* 行与行之间的垂直间距 */
+    align-items: baseline; /* 确保左右文字的底部在同一条线上 */
+}
+
+/* 调整标题样式 (CONTACT, SELECTED PRESS) */
+.info-row h3 {
+    font-size: 0.9rem;    /* 稍微调小一点，更有设计感 */
+    font-weight: normal;
+    margin: 0;
+    text-transform: uppercase; /* 强制大写 */
+    letter-spacing: 0.05em;    /* 增加字母间距 */
+    color: #303030;
+}
+
+.info-row p {
+    margin: 0;
+    line-height: 1.6;
+    color: #303030;
+    font-size: 1rem;
+}
+
+/* 栏位精细控制 */
+.col-1 { grid-column: 1; } /* 占据第 1 栏 */
+.col-2 { grid-column: 2; } /* 占据第 2 栏 */
+.col-3 { grid-column: 2 / span 2; } /* 从第 2 栏开始，跨越 2 栏宽度 */
+.col-4 { 
+    grid-column: 4;        /* 占据第 4 栏 */
+    text-align: right;     /* 链接靠右对齐，增加呼吸感 */
+}
+
+/* 让内容从第 1 栏开始，跨越 2 栏的宽度 */
+.col-1-2 { 
+    grid-column: 1 / span 2; 
+}
+
+/* 链接美化 */
+.info-row a {
+    text-decoration: none;
+    color: inherit;
+    transition: opacity 0.2s;
+}
+
+.info-row a:hover {
+    opacity: 0.5;
+}
